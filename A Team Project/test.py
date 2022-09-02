@@ -1,4 +1,6 @@
+from flask import Flask, redirect, url_for, render_template, request, flash
 from Dictionary_Builder import build_dict
+from Get_Quests import get_quests, get_quest, textify
 import random
 
 amlit = build_dict("amlit.txt", "amlit", "amlit")
@@ -12,61 +14,29 @@ math = build_dict("math.txt", "math", "math")
 geo = build_dict("geo.txt", "geo", "geo")
 worldlit = build_dict("worldlit.txt", "worldlit", "worldlit")
 
-def get_quests(category):
-    questindices = []
-    loc = random.randrange(0,(len(category)-1))
-    tempquest = list(category.keys())[loc]
-    #print(tempquest)
-    split = tempquest.find(".")
-    subcat = tempquest[:split]
+amlitquests = []
+physsciquests = []
+amgovquests = []
+lifesciquests = []
+fineartsquests = []
+worldhistquests = []
+amhistquests = []
+mathquests = []
+geoquests = []
+worldlitquests = []
 
-    if loc >= 3:
-        lowrange = loc - 3
-    else:
-        lowrange = 0
-    if loc <= (len(category)-4):
-        highrange = loc + 3
-    else:
-        highrange = (len(category)-1)
+categories = [amlit,physsci,amgov,lifesci,finearts,worldhist,amhist,math,geo,worldlit]
+categoriesquests = [amlitquests,physsciquests,amgovquests,lifesciquests,fineartsquests,worldhistquests,amhistquests,mathquests,geoquests,worldlitquests]
 
-    for i in range(lowrange, highrange):
-        testquest = list(category.keys())[i]
-        if testquest[:split] == subcat:
-            #print(i)
-            questindices.append(i)
-    if len(questindices) > 3:
-        #print(questindices)
-        tempquestindices = questindices
-        questindices = []
-        #print(questindices)
-        for i in tempquestindices:
-            leftovers = tempquest[(split+1):]
-            #print(leftovers)
-            split2 = leftovers.find(".")
-            split = split + split2
-            subcat = tempquest[:split]
-            #print(subcat)
-            testquest = list(category.keys())[i]
-            if testquest[:split] == subcat:
-                questindices.append(i)
-    elif len(questindices) < 3:
-        lowrange = 0
-        highrange = 0
-        if loc >= 1:
-            lowrange = loc - 1
-        else:
-            lowrange = 0
-            highrange += 1
-        if loc <= (len(category)-2):
-            highrange = highrange + loc + 1
-        else:
-            highrange = (len(category)-1)
-            lowrange -= 1
-        for i in range(lowrange,(highrange + 1)):
-            questindices.append(i)
-
-    return questindices
-    #for i in questindices:
-    #    print(list(category.keys())[i])
-
-print(get_quests(amlit))
+tempinput = [0]
+cats = tempinput
+print(cats)
+whichcategory = int(random.choice(cats))
+print(whichcategory)
+question = get_quest(list(categories)[whichcategory])
+print(str(question))
+cate = (list(categories)[whichcategory])
+print(cate)
+question = list(cate.items())[question]
+print(str(question))
+quest, ans = question

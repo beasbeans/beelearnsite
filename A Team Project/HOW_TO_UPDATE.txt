@@ -1,0 +1,9 @@
+Open Git Bash
+cd ~/Documents/"A Team Project"
+	If you added or renamed files...
+		git init
+		git add .
+
+	Always run these...
+		git commit -am '[update text here]'
+		git push heroku master

@@ -69,6 +69,10 @@ def get_quests(category):
     #for i in questindices:
     #    print(list(category.keys())[i])
 
+def get_quest(category):
+    loc = random.randrange(0,(len(category)-1))
+    return loc
+
 def textify(category, indices):
     questtuples = []
     for index in indices:
