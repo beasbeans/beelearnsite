@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" type="text/css">
+    </head>
+    <body id="body">
+        <form class="checkboxes" method="POST">
+            <label for="amlit">American Literature</label>  
+            <input type="checkbox" name="cats" id="amlit" value="0" {% if '0' in content %} checked {% endif %}>
+            <label for="physsci">Physical Science</label>
+            <input type="checkbox" name="cats" id="physsci" value="1" {% if '1' in content %} checked {% endif %}>
+            <label for="amgov">American Government</label>
+            <input type="checkbox" name="cats" id="amgov" value="2" {% if '2' in content %} checked {% endif %}>
+            <label for="lifesci">Life Science</label>
+            <input type="checkbox" name="cats" id="lifesci" value="3" {% if '3' in content %} checked {% endif %}>
+            <label for="finearts">Fine Arts</label>
+            <input type="checkbox" name="cats" id="finearts" value="4" {% if '4' in content %} checked {% endif %}>
+            <label for="worldhist">World History</label>
+            <input type="checkbox" name="cats" id="worldhist" value="5" {% if '5' in content %} checked {% endif %}>
+            <label for="amhist">American History</label>
+            <input type="checkbox" name="cats" id="amhist" value="6" {% if '6' in content %} checked {% endif %}>
+            <label for="math">Math</label>
+            <input type="checkbox" name="cats" id="math" value="7" {% if '7' in content %} checked {% endif %}>
+            <label for="amlit">Geography</label>
+            <input type="checkbox" name="cats" id="amlit" value="8" {% if '8' in content %} checked {% endif %}>
+            <label for="worldlit">World Literature</label>
+            <input type="checkbox" name="cats" id="worldlit" value="9" {% if '9' in content %} checked {% endif %}>
+            <input type="submit" value="Go...">
+        </form>
+        <p style="text-align:center;">disclaimer: you currently need to press 'submit' twice for it to work. idk why. ill try to fix it later probably</p>
+        <br>
+        <div class="questionbox">
+            <div class="q">
+            <p>{{question}}</p>
+            <p style="display:none;" class="answer">Answer: {{answer}}</p>
+            </div>
+
+            <div id="answerbits">
+                <label class="q" for="answerbox">Answer:</label>
+                <input type="text" name="answerbox" id="answerbox" onsubmit="submit_entry();">
+                <button type="btn btn-primary" onclick="submit_entry();">Submit Answer</button>
+            </div>
+        </div>
+
+    </body>
+{% block script %}
+    <script>
+        var i = 0
+        var x = 0
+        function submit_entry() {
+            var answer = document.getElementById('answerbox');
+            var entry={
+                answer: answer.value 
+            };
+            console.log(entry);
+
+            fetch('/quiz/answer', {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify(entry),
+                cache: "no-cache",
+                headers: new Headers({
+                    'content-type': 'application/json'
+                })
+            })
+            .then(function(response){
+                response.json().then(function (data) {
+                    console.log(data)
+                    var ansclass = document.getElementsByClassName("answer")
+                    currans = ansclass[x]
+                    x = x+1
+                    currans.style = ""
+                    if (data['accuracy'] == 'correct') {
+                        qboxes = document.getElementsByClassName('questionbox')
+                        qboxes[0].setAttribute('class', 'goodjob')
+                    } else {
+                        qboxes = document.getElementsByClassName('questionbox')
+                        qboxes[0].setAttribute('class', 'badjob')
+
+                    }
+                    
+                    var bits = document.getElementById("answerbits");
+                    bits.remove();
+
+                    var tag = document.createElement("div");
+                    tag.setAttribute('class','questionbox')
+                    var element = document.getElementById("body");
+                    element.appendChild(tag);
+
+                    qboxes = document.getElementsByClassName('questionbox')
+                    element = qboxes[0]
+                    
+                    tag = document.createElement("div");
+                    tag.setAttribute('class','q')
+                    tag.setAttribute('id', i)
+                    element.appendChild(tag);
+
+                    var subelement = document.getElementById(i);
+                    i = i+1
+
+                    tag = document.createElement("p");
+                    var text = document.createTextNode(data['question']);
+                    tag.appendChild(text);
+                    subelement.appendChild(tag);
+
+                    tag = document.createElement("p");
+                    text = document.createTextNode(data['answer']);
+                    tag.appendChild(text);
+                    tag.setAttribute('style','display:none;');
+                    tag.setAttribute('class','answer')
+                    subelement.appendChild(tag);
+
+                    tag = document.createElement("div");
+                    tag.setAttribute('id', 'answerbits')
+                    element.appendChild(tag);
+
+                    var subelement = document.getElementById('answerbits');
+
+                    tag = document.createElement("label");
+                    text = document.createTextNode("Answer:");
+                    tag.appendChild(text);
+                    tag.setAttribute('class','q')
+                    tag.setAttribute('for','answerbox')
+                    subelement.appendChild(tag);
+                    
+                    tag = document.createElement("input");
+                    tag.setAttribute('type','text')
+                    tag.setAttribute('name','answerbox')
+                    tag.setAttribute('id','answerbox')
+                    subelement.appendChild(tag);
+
+                    tag = document.createElement("button");
+                    text = document.createTextNode("Submit Answer");
+                    tag.appendChild(text);
+                    tag.setAttribute('type','btn btn-primary')
+                    tag.setAttribute('onclick','submit_entry();')
+                    subelement.appendChild(tag);
+
+                })
+            })
+        }
+    </script>
+{% endblock %}
+</html>

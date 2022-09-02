@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <body>
+        <a href="https://bee-learn.herokuapp.com/set"> Generate new set </a>
+        <ol>
+        {% for i in content %}
+            {% for item in i %}
+            <li><strong>{{item[0]}}</strong></li>
+            <p></p>
+            <p>{{item[1]}}</p>
+            {% endfor %}
+            <br>
+            <br>
+        {% endfor %}
+        </ol>
+    </body>
+</html>

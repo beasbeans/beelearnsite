@@ -1,0 +1,83 @@
+.checkboxes {
+    border: 3px outset whitesmoke;
+    border-radius: 15px;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+    margin-top: 5px;
+    text-align: justify;
+    padding: 4px;
+}
+
+.questionbox {
+    width: 85%;
+    font-size: 18px;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 7.5%;
+    margin-right: 7.5%; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color:blanchedalmond;
+    opacity: 80%;   
+}
+
+.goodjob {
+    width: 85%;
+    font-size: 18px;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 7.5%;
+    margin-right: 7.5%; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color:lightgreen;
+    opacity: 40%;   
+
+    border: 3px outset lightgreen;
+}
+
+p.goodjob{
+    opacity: 60%;
+}
+
+.badjob {
+    width: 85%;
+    font-size: 18px;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-left: 7.5%;
+    margin-right: 7.5%; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color:indianred;
+    opacity: 40%;   
+
+    border: 3px outset indianred;
+}
+
+p.badjob{
+    opacity: 60%;
+}
+
+.q {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+p {
+
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: whitesmoke;
+}
