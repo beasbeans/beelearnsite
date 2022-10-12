@@ -1,9 +1,10 @@
 <!doctype html>
 <html>
     <body>
+        <h1> Category Round </h1>
         <a href="https://bee-learn.herokuapp.com/set"> Generate new set </a>
         <ol>
-        {% for i in content %}
+        {% for i in contentc %}
             {% for item in i %}
             <li><strong>{{item[0]}}</strong></li>
             <p></p>
@@ -13,5 +14,20 @@
             <br>
         {% endfor %}
         </ol>
+        <br>
+        <br>
+        <br>
+        <h1>Lightning Round</h1>
+        <ol>
+            {% for i in contentl %}
+                {% for item in i %}
+                <li><strong>{{item[0]}}</strong></li>
+                <p></p>
+                <p>{{item[1]}}</p>
+                {% endfor %}
+                <br>
+                <br>
+            {% endfor %}
+            </ol>
     </body>
 </html>

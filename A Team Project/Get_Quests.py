@@ -71,12 +71,16 @@ def get_quests(category):
 
 def get_quest(category):
     loc = random.randrange(0,(len(category)-1))
+    print('getting that one and only one quest index, ' + str(loc))
     return loc
 
 def textify(category, indices):
     questtuples = []
-    for index in indices:
-        questtuples.append(list(category.items())[index])
+    if type(indices) == list:
+        for index in indices:
+            questtuples.append(list(category.items())[index])
+    else:
+        questtuples.append(list(category.items())[indices])
     return questtuples
 
 #print(textify(amlit, [300,299,298]))

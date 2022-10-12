@@ -30,7 +30,7 @@ categories = [amlit,physsci,amgov,lifesci,finearts,worldhist,amhist,math,geo,wor
 categoriesquests = [amlitquests,physsciquests,amgovquests,lifesciquests,fineartsquests,worldhistquests,amhistquests,mathquests,geoquests,worldlitquests]
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'They wIll neVer figUre out My supeR Cool seCret keY'
-app.config['ENV'] = 'development'
+## app.config['ENV'] = 'development'
 app.config['DEBUG'] = True
 app.config['TESTING'] = True
 
@@ -115,17 +115,25 @@ def quizans():
     else:
         print('no json bby')
            
-
+lightningquests = []
 @app.route("/set")
 def set():
+    lightningquests = []
     i = 0
     for category in categories:
         categoriesquests[i] = get_quests(category)
         #print("\n\n\n\n" + str(categoriesquests[i]) + "\n\n\n\n\n")
         categoriesquests[i] = textify(category, categoriesquests[i])
         i += 1
+    for l in range(0,20):
+        print("\n\n\n\n\n\n" + str(l) + "\n\n")
+        category = categories[random.randrange(0,(len(categories)-1))]
+        lightningquests.append(get_quest(category))
+        #print("\n\n\n\n" + str(categoriesquests[i]) + "\n\n\n\n\n")
+        print("GAGAGAGGAGGGG                 " + str(lightningquests) + "          GAGGAGGAGAG")
+        lightningquests[(l)] = textify(category, lightningquests[l])
     #print(list(categoriesquests[1])[1])
-    return render_template("set.html", content=list(categoriesquests))
+    return render_template("set.html", contentc=list(categoriesquests), contentl = list(lightningquests))
 
 if __name__ == "__main__":
     #app.run(host='0.0.0.0', port='8080', debug=False)
